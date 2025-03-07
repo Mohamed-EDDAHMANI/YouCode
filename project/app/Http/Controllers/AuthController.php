@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Candidat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Http\Requests\RegisterRequest;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -45,21 +48,27 @@ class AuthController extends Controller
         return redirect()->route('login')->with('success', 'You have been logged out successfully.');
     }
 
-    public function register(Request $request)
-    {
-        // Validate the form inputs
-        $validatedData = $request->validate([
-            'name' => ['required', 'string', 'max:255', 'unique:users,name'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'password' => ['required', 'string', 'min:8'],
-        ]);
-        
+    public function register(RegisterRequest $request)
+    {   
         // Create the new user
         $user = User::create([
-            'name' => $validatedData['name'],
-            'email' => $validatedData['email'],
-            'password' => Hash::make($validatedData['password']),
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role_id' => 1,
         ]);
+
+        $cinPath = $request->file('cin')->store('cin_images', 'public');
+
+        Candidat::create([
+            'phone' => $request->phone,
+            'address' => $request->address,
+            'dateBorn' => $request->dateBorn,
+            'cin' => $cinPath,
+            'user_id' => $user->id,
+        ]);
+
+
         
         // dd($user);
 
@@ -67,6 +76,6 @@ class AuthController extends Controller
         Auth::login($user);
 
         // Redirect to the dashboard or home page
-        return redirect('/')->with('success', 'Registration successful!');
+        return redirect('welcome')->with('success', 'Registration successful!');
     }
 }

@@ -12,9 +12,14 @@ function openModel() {
 
 function openPage(index) {
     const pages = Array.from(document.getElementsByClassName('page'));
+    console.log('-----------------');
+    console.log(pages)
     pages.map(item => {
+        console.log(item)
         item.classList.add('hidden')
     });
+    // console.log(pages[index]);
+    // console.log('-----------------');
     pages[index].classList.remove('hidden');
 }
 

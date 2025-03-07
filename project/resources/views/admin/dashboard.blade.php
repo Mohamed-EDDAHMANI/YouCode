@@ -28,12 +28,17 @@
 
 
     <!-- home admin -->
-    <div class="page">
+    <div class="page one">
         @include('layouts.admin')
     </div>
 
-    <div class="hidden page">
+    <div class=" page hidden two">
         @include('layouts.question')
+    </div>
+    </div>
+
+    <div class=" page hidden quize">
+        @include('layouts.quize')
     </div>
 
     <!-- Footer -->
@@ -43,5 +48,17 @@
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{{ asset('js/dashboard.js') }}"></script>
+    <script>
+        function openPage(index) {
+            const pages = Array.from(document.getElementsByClassName('page'));
+            pages.map(item => {
+                item.classList.add('hidden')
+            });
+            // console.log(pages[index]);
+            // console.log('-----------------');
+            pages[index].classList.remove('hidden');
+        }
+    </script>
 </body>
+
 </html>

@@ -19,8 +19,8 @@ class Quastion extends Model
         return $this->belongsToMany(Quizze::class, 'quastion_quizze');
     }
 
-    public function answer()
+    public function answers()
     {
-        return $this->hasMany(Answer::class, 'quastion_quizze');
+        return $this->hasMany(Answer::class);
     }
 }

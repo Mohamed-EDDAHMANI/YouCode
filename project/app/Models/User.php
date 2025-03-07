@@ -47,4 +47,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class);
     }
+
+    public function candidat()
+{
+    return $this->hasOne(Candidat::class);  // A user has one candidat
+}
 }

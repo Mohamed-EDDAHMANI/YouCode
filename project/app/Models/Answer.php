@@ -17,11 +17,16 @@ class Answer extends Model
 
     public function quastion()
     {
-        return $this->hasOne(Quastion::class, 'quastion_quizze');
+        return $this->hasOne(Quastion::class);
     }
 
     public function candidat()
     {
-        return $this->belongsToMany(Candidat::class, 'quizze_result');
+        return $this->belongsToMany(Candidat::class);
+    }
+
+    public function quizzeResults()
+    {
+        return $this->hasMany(QuizzeResult::class);
     }
 }

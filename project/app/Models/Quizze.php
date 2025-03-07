@@ -11,9 +11,10 @@ class Quizze extends Model
 
     protected $fillable = [
         'type',
+        'title'
     ];
 
-    public function quastion()
+    public function quastions()
     {
         return $this->belongsToMany(Quastion::class, 'quastion_quizze');
     }
